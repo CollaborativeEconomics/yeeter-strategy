@@ -4,7 +4,7 @@ pragma solidity ^0.8.19;
 import "forge-std/Test.sol";
 
 // Custom Strategy
-import {YeeterStrategy} from "src/YeeterStrategy.sol";
+import {Strategy} from "src/Strategy.sol";
 
 // Strategy Interface
 import {IStrategy} from "allo/contracts/core/interfaces/IStrategy.sol";
