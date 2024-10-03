@@ -11,73 +11,83 @@ import {IRegistry} from "allo/contracts/core/IRegistry.sol";
 // Core Contracts
 import {BaseStrategy} from "allo/contracts/strategies/BaseStrategy.sol";
 
-// Internal Libraries
-import {Metadata} from "allo/contracts/core/libraries/Metadata.sol";
 
-/// @title Strategy
-contract Strategy is BaseStrategy {
+contract YeeterStrategy is BaseStrategy {
+    error INPUT_LENGTH_MISMATCH();
+    error NOOP();
 
-  /// ===============================
-  /// ======== Constructor ==========
-  /// ===============================
+    constructor(address _allo, string memory _name) BaseStrategy(_allo, _name) {}
 
-  constructor(address _allo, string memory _name) BaseStrategy(_allo, _name) {}
+    function initialize(uint256 _poolId, bytes memory _data) external virtual override {
+        __BaseStrategy_init(_poolId);
+        emit Initialized(_poolId, _data);
+    }
 
-  /// ===============================
-  /// ========= Initialize ==========
-  /// ===============================
+    /// @notice Withdraw funds stuck on contract
+    /// @param _token Token address
+    /// @param _recipient Address to send the funds to
+    /// @param _amount Amount to withdraw
+    function withdraw(address _token, address _recipient, uint256 _amount) external onlyPoolManager(msg.sender) {
+        _transferAmount(_token, _recipient, _amount);
+    }
 
-  function initialize(uint256 _poolId, bytes memory _data) public virtual
-  override {
+    receive() external payable {}
 
-  }
+    /// @notice Allocate Yeeter funds to recipients
+    /// @param _data Array of recipientAddress , Array of amounts and the token address to allocate the funds to
+    function _allocate(bytes memory _data, address _sender) internal virtual override onlyPoolManager(_sender) {
+        // Decode the data
+        (address[] memory _recipientIds, uint256[] memory _amounts, address _token) =
+            abi.decode(_data, (address[], uint256[], address));
 
-  /// ====================================
-  /// ======== Strategy Methods ==========
-  /// ====================================
+        uint256 payoutLength = _recipientIds.length;
 
-  /// @notice Register to the pool
-  /// @param _data The data to be decoded
-  /// @param _sender The sender of the transaction
-  function _registerRecipient(bytes memory _data, address _sender) internal
-  override returns (address recipientId) {
+        // Assert at least one recipient
+        if (payoutLength == 0) {
+            revert INPUT_LENGTH_MISMATCH();
+        }
 
-  }
+        // Assert recipient and amounts length are equal
+        if (payoutLength != _amounts.length) {
+            revert INPUT_LENGTH_MISMATCH();
+        }
 
-  /// @notice Allocate amount to recipent for direct grants
-  /// @param _data The data to be decoded
-  /// @param _sender The sender of the allocation
-  function _allocate(bytes memory _data, address _sender) internal virtual
-  override {
+        // Transfer the funds to the recipient
+        for (uint256 i; i < payoutLength;) {
+            uint256 _amount = _amounts[i];
+            address _recipientId = _recipientIds[i];
 
-  }
+            _transferAmount(_token, _recipientId, _amount);
+            emit Allocated(_recipientId, _amount, _token, _sender);
+            unchecked {
+                ++i;
+            }
+        }
+    }
 
-  /// @notice Distribute the upcoming milestone
-  /// @param _sender The sender of the distribution
-  function _distribute(address[] memory _recipientIds, bytes memory, address
-                        _sender) internal virtual override {
+    // Not used in this Strategy
+    function allocate(address[] memory _recipientIds, uint256[] memory _amounts, address _token) external onlyPoolManager(msg.sender) {
+      bytes memory data = abi.encode(_recipientIds, _amounts, _token);
+      _allocate(data, msg.sender);
+    }
 
-  }
+    function _distribute(address[] memory, bytes memory, address) internal virtual override {
+        revert NOOP();
+    }
 
-  /// ====================================
-  /// ============= Views ================
-  /// ====================================
+    function _getRecipientStatus(address) internal view virtual override returns (Status) {
+        revert NOOP();
+    }
 
-  function getRecipientStatus(address _recipientId) external view returns
-  (RecipientStatus) {
+    function _isValidAllocator(address) internal view virtual override returns (bool) {
+        revert NOOP();
+    }
 
-  }
+    function _registerRecipient(bytes memory, address) internal virtual override returns (address) {
+        revert NOOP();
+    }
 
-  /// ====================================
-  /// =========== Internal ===============
-  /// ====================================
-
-  function _getPayout(address _recipientId, bytes memory _data) internal view
-  override returns (PayoutSummary memory){
-  }
-
-  function _isValidAllocator(address _allocator) internal view override virtual
-  returns (bool) {
-
-  }
+    function _getPayout(address, bytes memory) internal view virtual override returns (PayoutSummary memory) {
+        revert NOOP();
+    }
 }

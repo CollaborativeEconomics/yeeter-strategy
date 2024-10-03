@@ -49,7 +49,7 @@ We created a guide to get you started with:
 
 ## About this Starter Template
 
-This template is a fork of [femplate](https://github.com/refcell/femplate) that
+This template is a fork of [yeeter-strategy](https://github.com/refcell/yeeter-strategy) that
 has been modified to suite building allocation strategies for Allo Protocol. It
 uses [foundry](https://github.com/foundry-rs/foundry) and comes with
 [`allo-v2`](https://github.com/allo-protocol/allo-v2),
