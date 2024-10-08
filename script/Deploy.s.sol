@@ -12,7 +12,7 @@ contract Deploy is Script {
   /// @return yeeterStrategy The deployed contract
   function run() external returns (YeeterStrategy yeeterStrategy) {
     vm.startBroadcast();
-    yeeterStrategy = new YeeterStrategy(address(0), "Greeter");
+    yeeterStrategy = new YeeterStrategy(address(0), "Yeeter");
     vm.stopBroadcast();
   }
 }

@@ -66,7 +66,7 @@ contract YeeterStrategy is BaseStrategy {
     }
 
     // Not used in this Strategy
-    function allocate(address[] memory _recipientIds, uint256[] memory _amounts, address _token) external onlyPoolManager(msg.sender) {
+    function allocate(address[] memory _recipientIds, uint256[] memory _amounts, address _token) external override onlyPoolManager(msg.sender) {
       bytes memory data = abi.encode(_recipientIds, _amounts, _token);
       _allocate(data, msg.sender);
     }
