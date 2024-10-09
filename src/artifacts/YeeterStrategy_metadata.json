@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.19+commit.7dd6d404"
+		"version": "0.8.27+commit.40a35a09"
 	},
 	"language": "Solidity",
 	"output": {
@@ -11,6 +11,11 @@
 						"internalType": "address",
 						"name": "_allo",
 						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -312,29 +317,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address[]",
-						"name": "_recipientIds",
-						"type": "address[]"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "_amounts",
-						"type": "uint256[]"
-					},
-					{
-						"internalType": "address",
-						"name": "_token",
-						"type": "address"
-					}
-				],
-				"name": "allocate",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -964,7 +946,7 @@
 		"compilationTarget": {
 			"src/YeeterStrategy.sol": "YeeterStrategy"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -1008,35 +990,35 @@
 			]
 		},
 		"lib/allo-v2/contracts/core/libraries/Errors.sol": {
-			"keccak256": "0x67e3c1109948a92cb3a01e8c2325c5f1b748ecbd4c9cd5bee34e81fa737f77ea",
+			"keccak256": "0xcb30aef5d96b6be43471657c2b2cef6bf171fddcd71dc7d6347eedd51bc7e45c",
 			"license": "AGPL-3.0-only",
 			"urls": [
-				"bzz-raw://9603d3f1c4bb4b44a55663e71688a9d10786038e5dfa5039aa354572af1a53c3",
-				"dweb:/ipfs/QmWNxsPH9YaJJkFiiU6oJ642i5kHxPzpRYfR5H8zSH4KaP"
+				"bzz-raw://1ee6edb9116e028006cd4ac70a83ff2d41b749fd508575bb7627def1f782ad27",
+				"dweb:/ipfs/QmbyX2wEE74X6HRPBCGZBP9RVkMf69Aaj2cBcUaDMtTq7h"
 			]
 		},
 		"lib/allo-v2/contracts/core/libraries/Metadata.sol": {
-			"keccak256": "0x452a95a8762fafd51d36295138f7e14189cbaaca7274d6fd34a59ad57a442d44",
+			"keccak256": "0x41ece5b83f50d180841f44324a883e12b3fc2005e425e4cd51944fb8d46b147f",
 			"license": "AGPL-3.0-only",
 			"urls": [
-				"bzz-raw://2cc5507da2550ab9bfa0fbb263e703f9e70b831190bb7b2bcdbb231cab49795c",
-				"dweb:/ipfs/QmQXCD8v2HppXAX17aH49JvNyyfDYzGMrg63QNabUEXPpn"
+				"bzz-raw://ecd926cbce88398d6fdb1762f7b75617635ae866f8461b7fb32dd2b0a17273ce",
+				"dweb:/ipfs/QmdvPsL48GbXV2hy4vDcW9XtkN7VUTDebtYihuj7ZxhaD7"
 			]
 		},
 		"lib/allo-v2/contracts/core/libraries/Native.sol": {
-			"keccak256": "0x23dacace24a8c570a659dcc7e52fca2d39cc7577c6cfa674820cafaf194b29d5",
+			"keccak256": "0x5a12a5d2fb1ba09c0ca357b8ef22e65b954831563f6e6a63a08a8176608c9264",
 			"license": "AGPL-3.0-only",
 			"urls": [
-				"bzz-raw://0727880a600b1803f02b58ad002938462dc61aacf841f5e1ee38f296fdd67e8a",
-				"dweb:/ipfs/QmdrEiJxFFnUfn2QUNxRAUMS1qwCnRtGeWPChaGzhAkRnv"
+				"bzz-raw://75e51c8b86b13955b647f49e3869a0877d1af7355fad036ecc03af98e3d29972",
+				"dweb:/ipfs/QmZAGmPgsFj5pbY8eDVLNA8mjHUZtWq4V8RVNFLk8MyVr8"
 			]
 		},
 		"lib/allo-v2/contracts/core/libraries/Transfer.sol": {
-			"keccak256": "0x99f4e3bfd5cea354c2ef9e9774d7bdb2310faec5e7a21a619d87377b40eba135",
+			"keccak256": "0x490d9748fc1232a6db5a7dac80f7acd54852d0a1f3490959f3e6a6488f704f7e",
 			"license": "AGPL-3.0-only",
 			"urls": [
-				"bzz-raw://f84412d189fa7c6ea3656409af156fad084b1a541850798da3e76549e3124588",
-				"dweb:/ipfs/QmT3roFjt41PX7zgjT7KdThFU37Fh7F6vEyKooSzpfTBvq"
+				"bzz-raw://cc225511b84e9ac56b7b59339ed8ec5ce6d2a0f2b0ee8cbc2d68c48c9b8d3603",
+				"dweb:/ipfs/QmYDsnUWW2NsWjBn3PuLuz9nLjbVcCyeiv6tJZG1uxSbkQ"
 			]
 		},
 		"lib/allo-v2/contracts/strategies/BaseStrategy.sol": {
@@ -1056,11 +1038,11 @@
 			]
 		},
 		"src/YeeterStrategy.sol": {
-			"keccak256": "0x604a0a26d55bfeb2b59b54b54ecb9354b1d400d62601bc15ccd2dbd4c5afcc7e",
+			"keccak256": "0x7c549e691388815578a5ffaef8ac8ea00de0bbf3c48867abaa0df157b7ad5086",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4a6feb592b700f639fd717cc8570959b8f27cb864528a068d4cd9896d8d0ccfc",
-				"dweb:/ipfs/QmZFUkTDS7B5zucm8gyj56eP8Rc3wxLppb8wqjYQ4RzmVx"
+				"bzz-raw://565044cbdf59f55605493e59cc54837db2e649d9dc1408645c8ebaec5b5ebc28",
+				"dweb:/ipfs/QmQZLz2MhESQGZZuZ3dMN6q84zLTmzCipzvvyFXGTkd4gf"
 			]
 		}
 	},

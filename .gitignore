@@ -18,3 +18,4 @@ broadcast
 *.pem
 
 lib
+src/artifacts

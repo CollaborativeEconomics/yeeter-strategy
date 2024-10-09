@@ -11,7 +11,6 @@ import {IRegistry} from "allo/contracts/core/interfaces/IRegistry.sol";
 // Core Contracts
 import {BaseStrategy} from "allo/contracts/strategies/BaseStrategy.sol";
 
-
 contract YeeterStrategy is BaseStrategy {
     error INPUT_LENGTH_MISMATCH();
     error NOOP();
@@ -66,11 +65,6 @@ contract YeeterStrategy is BaseStrategy {
     }
 
     // Not used in this Strategy
-    function allocate(address[] memory _recipientIds, uint256[] memory _amounts, address _token) external override onlyPoolManager(msg.sender) {
-      bytes memory data = abi.encode(_recipientIds, _amounts, _token);
-      _allocate(data, msg.sender);
-    }
-
     function _distribute(address[] memory, bytes memory, address) internal virtual override {
         revert NOOP();
     }
