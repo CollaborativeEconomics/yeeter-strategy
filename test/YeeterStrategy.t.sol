@@ -21,6 +21,8 @@ contract YeeterStrategyTest is Test, AlloSetup, RegistrySetupFull, Errors {
     MockERC20 internal token;
     address[] internal recipients;
 
+    bool public metadataRequired;
+
     Metadata public poolMetadata;
 
     uint256 public poolId;
@@ -76,7 +78,6 @@ contract YeeterStrategyTest is Test, AlloSetup, RegistrySetupFull, Errors {
         address[] memory recipientIds = new address[](5);
         uint256[] memory amounts = new uint256[](5);
 
-        // Send tokens to the
         for (uint256 i = 0; i < 5; i++) {
             recipientIds[i] = makeAddr(string(abi.encodePacked("Recipient", i)));
             amounts[i] = 100;
@@ -116,15 +117,32 @@ contract YeeterStrategyTest is Test, AlloSetup, RegistrySetupFull, Errors {
             amounts[i] = 100;
         }
 
+        address anotherPoolManager = makeAddr("ANOTHER_POOL_MANAGER");
+
         vm.startPrank(address(pool_admin()));
-        allo().addPoolManager(poolId, makeAddr("ANOTHER_POOL_MANAGER"));
+        allo().addPoolManager(poolId, anotherPoolManager);
         vm.stopPrank();
 
-        vm.startPrank(makeAddr("ANOTHER_POOL_MANAGER"));
+        vm.startPrank(anotherPoolManager);
+        token.mint(anotherPoolManager, 2000);
+        token.approve(address(allo()), 2000);
+        allo().fundPool(poolId, 2000);
         bytes memory data = abi.encode(recipientIds, amounts, token);
         allo().allocate(poolId, data);
         vm.stopPrank();
 
-        assertEq(token.balanceOf(address(strategy)), 490);
+        assertEq(token.balanceOf(address(strategy)), 1480);
+
+        vm.startPrank(anotherPoolManager);
+        bytes memory new_data = abi.encode(recipientIds, amounts, token);
+        allo().allocate(poolId, new_data);
+        vm.stopPrank();
+
+        assertEq(token.balanceOf(address(strategy)), 980);
+    }
+
+    function testRevert_addPoolManager_UNAUTHORIZED() public {
+        vm.expectRevert(UNAUTHORIZED.selector);
+        allo().addPoolManager(poolId, makeAddr("UNAUTHORIZED"));
     }
 }

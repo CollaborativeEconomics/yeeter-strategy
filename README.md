@@ -1,8 +1,7 @@
-# Strategy Starter Kit 
+# Yeeter Strategy
 
-A starter template for building allocation strategies on Allo Protocol.
+A strategy for Allo Protocol that distributes tokens to recipients based on a amount allocation.
 
-## Usage
 
 ### Building & Testing
 

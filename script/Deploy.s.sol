@@ -18,7 +18,7 @@ contract Deploy is Script {
         yeeterStrategy = new YeeterStrategy{salt: salt}(address(0), "Yeeter");
 
         // Log the deployed address
-        console.log("YeeterStrategy deployed at:", address(yeeterStrategy));
+        // console.log("YeeterStrategy deployed at:", address(yeeterStrategy));
 
         // Calculate and log the expected address
         address expectedAddress = address(uint160(uint256(keccak256(abi.encodePacked(
@@ -30,7 +30,7 @@ contract Deploy is Script {
                 abi.encode(address(0), "Yeeter")
             ))
         )))));
-        console.log("Expected address:", expectedAddress);
+        // console.log("Expected address:", expectedAddress);
 
         // Verify the deployment
         require(address(yeeterStrategy) == expectedAddress, "Deployment address mismatch");
